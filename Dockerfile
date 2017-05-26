@@ -19,7 +19,15 @@ RUN set -ex \
     musl-dev \
     wget \
     linux-headers \
-    && apk add --no-cache gnutls-dev linux-pam-dev libseccomp-dev lz4-dev libev-dev oath-toolkit-dev protobuf-c-dev krb5-dev iptables gnutls-utils \
+    gnutls-dev \
+    linux-pam-dev \
+    libseccomp-dev \
+    lz4-dev \
+    libev-dev \
+    oath-toolkit-dev \
+    protobuf-c-dev \
+    krb5-dev \
+    gnutls-utils \
     && wget ftp://ftp.infradead.org/pub/ocserv/ocserv-$OCSERV_VERSION.tar.xz \
     && mkdir -p /etc/ocserv \
     && tar xf ocserv-$OCSERV_VERSION.tar.xz \
@@ -28,6 +36,12 @@ RUN set -ex \
     && ./configure \
     && make \
     && make install \
+    && runDeps="$( \
+        scanelf --needed --nobanner /usr/local/sbin/ocserv \
+            | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
+            | xargs -r apk info --installed \
+            | sort -u \
+    )" \
     && cd .. \
     && rm -rf ocserv-$OCSERV_VERSION \
     && mkdir -p /etc/ocserv/certs \
@@ -53,6 +67,7 @@ RUN set -ex \
     && certtool --generate-certificate --load-privkey server-key.pem --load-ca-certificate ca-cert.pem --load-ca-privkey ca-key.pem --template server.tmpl --outfile server-cert.pem \
     && touch /etc/ocserv/ocpasswd \
     && apk del .build-dependencies \
+    && apk add --no-cache --virtual .run-deps $runDeps iptables \
     && rm -rf /var/cache/apk/*
 
 WORKDIR /etc/ocserv
