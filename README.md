@@ -23,7 +23,7 @@ LZ4 compression:      yes
 readline:             yes
 libnl3:               yes
 liboath:              yes
-libgeoip:             yes
+libgeoip:             no
 glibc (sha2crypt):    no
 local talloc:         yes
 local protobuf-c:     no
