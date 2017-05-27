@@ -35,9 +35,7 @@ local http-parser:    yes
 ## Build docker image
 
 ```bash
-$ git clone https://github.com/blackgiulia/docker-ocserv.git
-$ cd docker-ocserv
-$ docker build -t ocserv .
+$ docker build -t ocserv https://github.com/blackgiulia/docker-ocserv.git
 ```
 
 ## Run docker container
