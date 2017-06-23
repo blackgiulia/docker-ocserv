@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM alpine:3.6
 
 ENV OCSERV_VERSION 0.11.8
 ENV CA_CN VPN CA
