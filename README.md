@@ -1,13 +1,14 @@
 # About this docker image
 
 This is a custom Docker image for [ocserv](http://www.infradead.org/ocserv/) which is a SSL VPN server.
+
 ```
 Summary of build options:
-version:              0.11.8
-Host type:            x86_64-unknow-linux-gnu
+version:              0.11.11
+Host type:            x86_64-pc-linux-gnu
 Install prefix:       /usr/local
 Compiler:             gcc
-CFlags:               -g -O2 -Wall -Wno-strict-aliasing
+CFlags:               -g -O2 -Wall -Wno-strict-aliasing -Wextra -Wno-unused-parameter -Wno-sign-compare -Wno-missing-field-initializers -Wno-implicit-fallthrough
 CWrap testing:        no
 CWrap PAM testing:    no
 PAM auth backend:     yes
@@ -22,7 +23,7 @@ Compression:          yes
 LZ4 compression:      yes
 readline:             yes
 libnl3:               yes
-liboath:              yes
+liboath:              no
 libgeoip:             no
 glibc (sha2crypt):    no
 local talloc:         yes

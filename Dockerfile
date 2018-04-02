@@ -1,13 +1,12 @@
-FROM alpine:3.6
+FROM alpine:3.7
 
-ENV OCSERV_VERSION 0.11.8
+ENV OCSERV_VERSION 0.11.11
 ENV CA_CN VPN CA
 ENV CA_ORG Big Corp
 ENV SRV_CN VPN server
 ENV SRV_ORG MyCompany
 
 RUN set -ex \
-    && echo "http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
     && apk add --no-cache --virtual .build-dependencies \
     readline-dev \
     libnl3-dev \
@@ -24,7 +23,6 @@ RUN set -ex \
     libseccomp-dev \
     lz4-dev \
     libev-dev \
-    oath-toolkit-dev \
     protobuf-c-dev \
     krb5-dev \
     gnutls-utils \
@@ -75,7 +73,7 @@ WORKDIR /etc/ocserv
 COPY ocserv.conf /etc/ocserv/ocserv.conf
 COPY entrypoint.sh /entrypoint.sh
 
-EXPOSE 443
+EXPOSE 443:443/udp
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["ocserv", "-c", "/etc/ocserv/ocserv.conf", "-f"]
