@@ -43,13 +43,13 @@ RUN set -ex \
             | sort -u \
     )" \
     && runDeps-occtl="$( \
-        scanelf --needed --nobanner /usr/local/sbin/occctl \
+        scanelf --needed --nobanner /usr/local/bin/occctl \
             | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
             | xargs -r apk info --installed \
             | sort -u \
     )" \
     && runDeps-ocpasswd="$( \
-        scanelf --needed --nobanner /usr/local/sbin/ocpasswd \
+        scanelf --needed --nobanner /usr/local/bin/ocpasswd \
             | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
             | xargs -r apk info --installed \
             | sort -u \
