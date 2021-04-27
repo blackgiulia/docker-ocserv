@@ -34,8 +34,20 @@ RUN set -ex \
     && ./configure \
     && make \
     && make install \
-    && runDeps="$( \
+    && runDeps-ocserv="$( \
         scanelf --needed --nobanner /usr/local/sbin/ocserv \
+            | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
+            | xargs -r apk info --installed \
+            | sort -u \
+    )" \
+    && runDeps-occtl="$( \
+        scanelf --needed --nobanner /usr/local/sbin/occctl \
+            | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
+            | xargs -r apk info --installed \
+            | sort -u \
+    )" \
+    && runDeps-ocpasswd="$( \
+        scanelf --needed --nobanner /usr/local/sbin/ocpasswd \
             | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
             | xargs -r apk info --installed \
             | sort -u \
@@ -65,7 +77,9 @@ RUN set -ex \
     && certtool --generate-certificate --load-privkey server-key.pem --load-ca-certificate ca-cert.pem --load-ca-privkey ca-key.pem --template server.tmpl --outfile server-cert.pem \
     && touch /etc/ocserv/ocpasswd \
     && apk del .build-dependencies \
-    && apk add --no-cache --virtual .run-deps $runDeps iptables \
+    && apk add --no-cache --virtual .run-deps $runDeps-ocserv \
+    && apk add --no-cache --virtual .run-deps $runDeps-occtl \
+    && apk add --no-cache --virtual .run-deps $runDeps-ocpasswd iptables \
     && rm -rf /var/cache/apk/*
 
 WORKDIR /etc/ocserv
