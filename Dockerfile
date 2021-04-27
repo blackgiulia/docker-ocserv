@@ -1,6 +1,6 @@
-FROM alpine:3.7
+FROM alpine:3.12
 
-ENV OCSERV_VERSION 0.11.11
+ENV OCSERV_VERSION 0.12.6
 ENV CA_CN VPN CA
 ENV CA_ORG Big Corp
 ENV SRV_CN VPN server
@@ -73,7 +73,8 @@ WORKDIR /etc/ocserv
 COPY ocserv.conf /etc/ocserv/ocserv.conf
 COPY entrypoint.sh /entrypoint.sh
 
-EXPOSE 443:443/udp
+EXPOSE 443/tcp
+EXPOSE 443/udp
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["ocserv", "-c", "/etc/ocserv/ocserv.conf", "-f"]

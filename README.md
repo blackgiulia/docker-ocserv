@@ -4,33 +4,35 @@ This is a custom Docker image for [ocserv](http://www.infradead.org/ocserv/) whi
 
 ```
 Summary of build options:
-version:              0.11.11
-Host type:            x86_64-pc-linux-gnu
-Install prefix:       /usr/local
-Compiler:             gcc
-CFlags:               -g -O2 -Wall -Wno-strict-aliasing -Wextra -Wno-unused-parameter -Wno-sign-compare -Wno-missing-field-initializers -Wno-implicit-fallthrough
-CWrap testing:        no
-CWrap PAM testing:    no
-PAM auth backend:     yes
-Radius auth backend:  no
-GSSAPI auth backend:  yes
-Anyconnect compat:    yes
-TCP wrappers:         no
-systemd:              no
-(socket activation)
-seccomp:              yes
-Compression:          yes
-LZ4 compression:      yes
-readline:             yes
-libnl3:               yes
-liboath:              no
-libgeoip:             no
-glibc (sha2crypt):    no
-local talloc:         yes
-local protobuf-c:     no
-local PCL library:    yes
-local libopts:        yes
-local http-parser:    yes
+  version:              0.12.6
+  Host type:            x86_64-pc-linux-musl
+  Install prefix:       /usr/local
+  Compiler:             gcc
+  CFlags:               -g -O2 -Wall -Wno-strict-aliasing -Wextra -Wno-unused-parameter -Wno-sign-compare -Wno-missing-field-initializers -Wno-implicit-fallthrough -Wno-stringop-truncation
+  CWrap testing:        no
+  CWrap PAM testing:    no
+  CWrap NSS testing:    no
+
+  PAM auth backend:     yes
+  Radius auth backend:  no
+  GSSAPI auth backend:  yes
+  Anyconnect compat:    yes
+  TCP wrappers:         no
+  systemd:              no
+  (socket activation)
+  worker isolation:     seccomp
+  Compression:          yes
+  LZ4 compression:      yes
+  readline:             yes
+  libnl3:               yes
+  liboath:              no
+  libgeoip:             no
+  libmaxminddb:         no
+  glibc (sha2crypt):    no
+  local talloc:         yes
+  local protobuf-c:     no
+  local PCL library:    yes
+  local http-parser:    yes
 ```
 
 ## Build docker image
