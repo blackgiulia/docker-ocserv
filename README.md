@@ -25,9 +25,9 @@ Summary of build options:
   LZ4 compression:      yes
   readline:             yes
   libnl3:               yes
-  liboath:              no
+  liboath:              yes
   libgeoip:             no
-  libmaxminddb:         no
+  libmaxminddb:         yes
   glibc (sha2crypt):    no
   local talloc:         yes
   local protobuf-c:     no
