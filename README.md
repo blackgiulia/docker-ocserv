@@ -4,7 +4,7 @@ This is a custom Docker image for [ocserv](http://www.infradead.org/ocserv/) whi
 
 ```
 Summary of build options:
-  version:              0.12.6
+  version:              1.1.2
   Host type:            x86_64-pc-linux-musl
   Install prefix:       /usr/local
   Compiler:             gcc
@@ -16,8 +16,10 @@ Summary of build options:
   PAM auth backend:     yes
   Radius auth backend:  no
   GSSAPI auth backend:  yes
+  OIDC Auth backend:    no
   Anyconnect compat:    yes
   TCP wrappers:         no
+  namespaces:           yes
   systemd:              no
   (socket activation)
   worker isolation:     seccomp
@@ -33,6 +35,8 @@ Summary of build options:
   local protobuf-c:     no
   local PCL library:    yes
   local http-parser:    yes
+  seccomp trap:		no
+  capture latency stats no
 ```
 
 ## Build docker image
